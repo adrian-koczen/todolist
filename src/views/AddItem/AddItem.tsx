@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 // Icons
 import { ReactComponent as List } from "icons/list.svg";
 // Components
@@ -12,12 +13,20 @@ interface Item {
   item: string;
 }
 
+const ItemValidationSchema = Yup.object().shape({
+  item: Yup.string()
+    .required("Pole wymagane")
+    .min(10, "Wprowadź więcej znaków")
+    .max(60, "Za duża liczba znaków"),
+});
+
 const AddItem = () => {
   const initialValues: Item = {
     item: "",
   };
   const formik = useFormik({
     initialValues: initialValues,
+    validationSchema: ItemValidationSchema,
     onSubmit: (values: Item) => {
       console.log(values);
     },
