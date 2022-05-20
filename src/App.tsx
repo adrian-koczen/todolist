@@ -9,7 +9,9 @@ function App() {
       <header className={styles.header}>
         <span>To-Do App</span>
       </header>
-      <AddItem />
+      <div className={styles.viewsWrapper}>
+        <AddItem />
+      </div>
     </div>
   );
 }
