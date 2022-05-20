@@ -9,8 +9,11 @@ interface Props {
 const Title = ({ icon, ...props }: Props) => {
   return (
     <div className={styles.container}>
-      {icon}
-      <span className={styles.title}>{props.children}</span>
+      <div className={styles.content}>
+        {icon}
+        <span className={styles.title}>{props.children}</span>
+      </div>
+      <div className={styles.border}></div>
     </div>
   );
 };

@@ -1,12 +1,25 @@
 .container {
+  width: 100%;
   min-width: 200px;
   flex-direction: row;
   position: absolute;
   top: -30px;
   display: flex;
   flex-direction: row;
+  padding-bottom: 10px;
+  .border {
+    position: absolute;
+    top: 75px;
+    width: 85%;
+    height: 1px;
+    background-color: #ededed;
+  }
   @media screen and (min-width: 340px) {
     top: -45px;
+    .border {
+      top: 95px;
+      width: 95%;
+    }
   }
 
   .title {

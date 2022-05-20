@@ -26,6 +26,7 @@ const ItemValidationSchema = Yup.object().shape({
 
 const AddItem = () => {
   const [list, setList] = useState<ListItem[]>([]);
+  // Przenieś stan powyżej
 
   const formik = useFormik<FormItem>({
     initialValues: initialValues,
@@ -51,6 +52,7 @@ const AddItem = () => {
     <Box>
       <Title icon={<Icon color="blue" icon={<List />} />}>ADD ITEM</Title>
       <form className={styles.form} onSubmit={formik.handleSubmit}>
+        <div className={styles.border}></div>
         <div className={styles.formElement}>
           <label>What do you want to do?</label>
           <input
