@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "styles/index.module.scss";
 // Views
 import AddItem from "views/AddItem/AddItem";
+import { useCounter } from "views/AddItem/Counter";
 
 function App() {
   return (

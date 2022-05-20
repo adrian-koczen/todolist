@@ -5,7 +5,9 @@ form {
   border-top: 1px solid #ededed;
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  position: relative;
   .addButton {
     background-color: $blue;
     width: 40px;
@@ -19,6 +21,9 @@ form {
     font-size: 24px;
     margin: 0 40px;
     cursor: pointer;
+    border: none;
+    position: relative;
+    top: 15px;
   }
 }
 
@@ -27,8 +32,21 @@ form {
   flex-grow: 1;
   flex-direction: column;
   label {
+    margin-top: 10px;
     font-size: 13px;
     color: $blue;
+  }
+  select {
+    margin: 10px 0;
+    width: 200px;
+    border: 1px solid $blue;
+    padding: 5px;
+    &:focus {
+      outline: none;
+    }
+    option {
+      background-color: #eff7f6;
+    }
   }
   input {
     border: none;
@@ -39,7 +57,7 @@ form {
       outline: none;
     }
     &::placeholder {
-      color: #000000;
+      color: #c0bcbc;
     }
   }
 }
