@@ -3,6 +3,7 @@ import styles from "styles/index.module.scss";
 // Views
 import AddItem from "views/AddItem/AddItem";
 import ToDoList from "views/ToDoList/ToDoList";
+import Completed from "views/Completed/Completed";
 // Interfaces
 import { ListItem } from "interfaces";
 
@@ -15,8 +16,9 @@ function App() {
         <span>To-Do App</span>
       </header>
       <div className={styles.viewsWrapper}>
-        <AddItem setList={setList} />
+        <AddItem setList={setList} list={list} />
         <ToDoList list={list} setList={setList} />
+        <Completed />
       </div>
     </div>
   );

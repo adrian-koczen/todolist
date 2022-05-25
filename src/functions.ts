@@ -21,3 +21,11 @@ export function compare(a: ListItem, b: ListItem) {
   }
   return 0;
 }
+
+export function isTaskInArray(
+  list: ListItem[],
+  listItem: Omit<ListItem, "id">
+) {
+  let { task } = listItem;
+  return list.find((el) => el.task === task);
+}

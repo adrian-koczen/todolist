@@ -12,10 +12,11 @@ import Title from "components/Title/Title";
 // Interfaces
 import { FormItem, ListItem, Priority } from "interfaces";
 // Functions
-import { convertPriority, compare } from "functions";
+import { convertPriority, compare, isTaskInArray } from "functions";
 
 interface Props {
   setList: React.Dispatch<React.SetStateAction<ListItem[]>>;
+  list: ListItem[];
 }
 
 const initialValues: FormItem = {
@@ -30,7 +31,7 @@ const ItemValidationSchema = Yup.object().shape({
     .required(),
 });
 
-const AddItem = ({ setList }: Props) => {
+const AddItem = ({ list, setList }: Props) => {
   const formik = useFormik<FormItem>({
     initialValues: initialValues,
     validationSchema: ItemValidationSchema,
@@ -45,7 +46,11 @@ const AddItem = ({ setList }: Props) => {
   });
 
   function addItemToList(listItem: Omit<ListItem, "id">) {
-    setList((prev) => [...prev, { id: uuidv4(), ...listItem }].sort(compare));
+    if (!isTaskInArray(list, listItem)) {
+      setList((prev) => [...prev, { id: uuidv4(), ...listItem }].sort(compare));
+    } else {
+      console.log("Element is in array.");
+    }
   }
 
   return (
