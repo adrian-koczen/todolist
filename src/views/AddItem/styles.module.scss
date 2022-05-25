@@ -4,8 +4,12 @@ form {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   position: relative;
+
+  @media screen and (min-width: 340px) {
+  }
+
   .addButton {
     background-color: $blue;
     width: 40px;
@@ -17,11 +21,11 @@ form {
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    margin: 0 40px;
     cursor: pointer;
     border: none;
     position: relative;
     top: 15px;
+    margin-left: 10px;
   }
 }
 
@@ -34,6 +38,7 @@ form {
     font-size: 13px;
     color: $blue;
   }
+
   select {
     margin: 10px 0;
     width: 200px;
@@ -46,6 +51,7 @@ form {
       background-color: #eff7f6;
     }
   }
+
   input {
     border: none;
     line-height: 30px;

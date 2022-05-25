@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -10,7 +10,13 @@ import Box from "components/Box/Box";
 import Icon from "components/Icon/Icon";
 import Title from "components/Title/Title";
 // Interfaces
-import { FormItem, ListItem, Priority } from "./interfaces";
+import { FormItem, ListItem, Priority } from "interfaces";
+// Functions
+import { convertPriority, compare } from "functions";
+
+interface Props {
+  setList: React.Dispatch<React.SetStateAction<ListItem[]>>;
+}
 
 const initialValues: FormItem = {
   task: "",
@@ -24,29 +30,23 @@ const ItemValidationSchema = Yup.object().shape({
     .required(),
 });
 
-const AddItem = () => {
-  const [list, setList] = useState<ListItem[]>([]);
-  // Przenieś stan powyżej
-
+const AddItem = ({ setList }: Props) => {
   const formik = useFormik<FormItem>({
     initialValues: initialValues,
     validationSchema: ItemValidationSchema,
     onSubmit: (values) => {
+      let priority = convertPriority(values.priority);
       addItemToList({
         task: values.task,
-        priority: values.priority,
+        priority: priority,
         createTime: new Date(),
       });
     },
   });
 
   function addItemToList(listItem: Omit<ListItem, "id">) {
-    setList([...list, { id: uuidv4(), ...listItem }]);
+    setList((prev) => [...prev, { id: uuidv4(), ...listItem }].sort(compare));
   }
-
-  useEffect(() => {
-    console.log(list);
-  }, [list]);
 
   return (
     <Box>
@@ -73,9 +73,11 @@ const AddItem = () => {
             <option value={Priority.high}>High</option>
           </select>
         </div>
-        <button type="submit" className={styles.addButton}>
-          +
-        </button>
+        <div className={styles.buttonWrapper}>
+          <button type="submit" className={styles.addButton}>
+            +
+          </button>
+        </div>
       </form>
     </Box>
   );

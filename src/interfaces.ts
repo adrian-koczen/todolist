@@ -4,6 +4,8 @@ export enum Priority {
   high = "high",
 }
 
+export type ConvertedPriority = number;
+
 export interface FormItem {
   task: string;
   priority: Priority;
@@ -12,7 +14,7 @@ export interface FormItem {
 export interface ListItem {
   id: string;
   task: string;
-  priority: Priority;
+  priority: ConvertedPriority;
   createTime: Date;
   endDate?: Date;
 }
