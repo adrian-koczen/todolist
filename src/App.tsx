@@ -1,27 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "styles/index.module.scss";
 // Views
 import AddItem from "views/AddItem/AddItem";
 import ToDoList from "views/ToDoList/ToDoList";
 import Completed from "views/Completed/Completed";
-// Interfaces
-import { ListItem } from "interfaces";
+// Components
+import Errors from "components/Errors/Errors";
 // Context
 import StateContextProvider from "StateContext";
+import ErrorsContext from "ErrorsContext";
 
 function App() {
   return (
     <div className={styles.container}>
-      <header className={styles.header}>
+      <header>
         <span>To-Do App</span>
       </header>
-      <div className={styles.viewsWrapper}>
-        <StateContextProvider>
-          <AddItem />
-          <ToDoList />
-          <Completed />
-        </StateContextProvider>
-      </div>
+      <ErrorsContext>
+        <Errors />
+        <div className={styles.viewsWrapper}>
+          <StateContextProvider>
+            <AddItem />
+            <ToDoList />
+            <Completed />
+          </StateContextProvider>
+        </div>
+      </ErrorsContext>
       <footer />
     </div>
   );

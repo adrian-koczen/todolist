@@ -15,6 +15,7 @@ import { FormItem, ListItem, Priority } from "interfaces";
 import { convertPriority, compare, isTaskInArray } from "functions";
 // Context
 import { useStateContext } from "StateContext";
+import { useErrorContext } from "ErrorsContext";
 
 const initialValues: FormItem = {
   task: "",
@@ -30,6 +31,7 @@ const ItemValidationSchema = Yup.object().shape({
 
 const AddItem = () => {
   const { list, setList } = useStateContext();
+  const { addError } = useErrorContext();
 
   const formik = useFormik<FormItem>({
     initialValues: initialValues,
@@ -49,7 +51,7 @@ const AddItem = () => {
     if (!isTaskInArray(list, listItem)) {
       setList((prev) => [...prev, { id: uuidv4(), ...listItem }].sort(compare));
     } else {
-      console.log("Element is in array.");
+      addError("Element is already in array.");
     }
   }
 

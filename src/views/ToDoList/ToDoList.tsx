@@ -6,15 +6,8 @@ import Icon from "components/Icon/Icon";
 import ListElement from "components/ListElement/ListElement";
 // Icons
 import { ReactComponent as Menu } from "icons/menu.svg";
-// Interfaces
-import { ListItem } from "interfaces";
 // Context
 import { useStateContext } from "StateContext";
-
-interface Props {
-  list: ListItem[];
-  setList: React.Dispatch<React.SetStateAction<ListItem[]>>;
-}
 
 const ToDoList = () => {
   const { list, setList } = useStateContext();
