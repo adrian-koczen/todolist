@@ -20,6 +20,10 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
+    button {
+      border: none;
+    }
   }
 
   .functionIcon {
@@ -49,6 +53,7 @@
     border-radius: 50%;
     color: #ffffff;
     padding: 4px;
+    cursor: pointer;
   }
 
   .functionsContainer {

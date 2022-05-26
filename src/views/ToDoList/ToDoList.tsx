@@ -3,11 +3,11 @@ import React from "react";
 import Box from "components/Box/Box";
 import Title from "components/Title/Title";
 import Icon from "components/Icon/Icon";
+import ListElement from "components/ListElement/ListElement";
 // Icons
 import { ReactComponent as Menu } from "icons/menu.svg";
 // Interfaces
 import { ListItem } from "interfaces";
-import ListElement from "components/ListElement/ListElement";
 
 interface Props {
   list: ListItem[];
@@ -20,7 +20,18 @@ const ToDoList = ({ list, setList }: Props) => {
       <Title icon={<Icon color="yellow" icon={<Menu />} />}>TO-DO LIST</Title>
       {list &&
         list.map((item) => {
-          return <ListElement key={item.id} listItem={item} />;
+          if (!item.completed) {
+            return (
+              <ListElement
+                key={item.id}
+                listItem={item}
+                setList={setList}
+                list={list}
+              />
+            );
+          } else {
+            return null;
+          }
         })}
     </Box>
   );

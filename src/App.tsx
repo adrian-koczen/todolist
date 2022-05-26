@@ -9,17 +9,17 @@ import { ListItem } from "interfaces";
 
 function App() {
   const [list, setList] = useState<ListItem[]>([]);
-
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <span>To-Do App</span>
       </header>
       <div className={styles.viewsWrapper}>
-        <AddItem setList={setList} list={list} />
+        <AddItem list={list} setList={setList} />
         <ToDoList list={list} setList={setList} />
-        <Completed />
+        <Completed list={list} setList={setList} />
       </div>
+      <footer />
     </div>
   );
 }

@@ -41,6 +41,7 @@ const AddItem = ({ list, setList }: Props) => {
         task: values.task,
         priority: priority,
         createTime: new Date(),
+        completed: false,
       });
     },
   });

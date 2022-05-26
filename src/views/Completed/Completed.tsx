@@ -1,16 +1,38 @@
 import React from "react";
-import styles from "./styles.module.scss";
 // Components
 import Box from "components/Box/Box";
 import Icon from "components/Icon/Icon";
 import Title from "components/Title/Title";
+import ListElement from "components/ListElement/ListElement";
 // Icons
 import { ReactComponent as Check } from "icons/check.svg";
+// Interfaces
+import { ListItem } from "interfaces";
 
-const Completed = () => {
+interface Props {
+  list: ListItem[];
+  setList: React.Dispatch<React.SetStateAction<ListItem[]>>;
+}
+
+const Completed = ({ list, setList }: Props) => {
   return (
     <Box>
       <Title icon={<Icon icon={<Check />} color="green" />}>COMPLETED</Title>
+      {list &&
+        list.map((item) => {
+          if (item.completed) {
+            return (
+              <ListElement
+                key={item.id}
+                listItem={item}
+                setList={setList}
+                list={list}
+              />
+            );
+          } else {
+            return null;
+          }
+        })}
     </Box>
   );
 };

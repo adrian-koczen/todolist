@@ -29,3 +29,11 @@ export function isTaskInArray(
   let { task } = listItem;
   return list.find((el) => el.task === task);
 }
+
+export function getElementIndex(list: ListItem[], listItem: ListItem) {
+  let element = list.find((el) => el === listItem);
+  if (element !== undefined) {
+    let index = list.indexOf(element);
+    return index;
+  }
+}
