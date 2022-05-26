@@ -5,7 +5,7 @@ import AddItem from "views/AddItem/AddItem";
 import ToDoList from "views/ToDoList/ToDoList";
 import Completed from "views/Completed/Completed";
 // Components
-import Errors from "components/Errors/Errors";
+import Errors from "views/Errors/Errors";
 // Context
 import StateContextProvider from "StateContext";
 import ErrorsContext from "ErrorsContext";
