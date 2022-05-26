@@ -57,7 +57,7 @@ const ListElement = ({ listItem }: Props) => {
       <div className={styles.functionsContainer}>
         <Pencil
           className={`${styles.functionIcon} ${styles.green}`}
-          onClick={() => openModal(<ModifyElement />)}
+          onClick={() => openModal(<ModifyElement listItem={listItem} />)}
         />
         <Bin
           className={`${styles.functionIcon} ${styles.red}`}

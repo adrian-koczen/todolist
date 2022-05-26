@@ -1,7 +1,13 @@
 import React from "react";
+// Interfaces
+import { ListItem } from "interfaces";
 
-const ModifyElement = () => {
-  return <div>ModifyElement</div>;
+interface Props {
+  listItem: ListItem;
+}
+
+const ModifyElement = ({ listItem }: Props) => {
+  return <div>{listItem.id}</div>;
 };
 
 export default ModifyElement;
