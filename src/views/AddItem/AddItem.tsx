@@ -13,11 +13,8 @@ import Title from "components/Title/Title";
 import { FormItem, ListItem, Priority } from "interfaces";
 // Functions
 import { convertPriority, compare, isTaskInArray } from "functions";
-
-interface Props {
-  setList: React.Dispatch<React.SetStateAction<ListItem[]>>;
-  list: ListItem[];
-}
+// Context
+import { useStateContext } from "StateContext";
 
 const initialValues: FormItem = {
   task: "",
@@ -31,7 +28,9 @@ const ItemValidationSchema = Yup.object().shape({
     .required(),
 });
 
-const AddItem = ({ list, setList }: Props) => {
+const AddItem = () => {
+  const { list, setList } = useStateContext();
+
   const formik = useFormik<FormItem>({
     initialValues: initialValues,
     validationSchema: ItemValidationSchema,

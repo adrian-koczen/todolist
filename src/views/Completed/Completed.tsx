@@ -6,15 +6,12 @@ import Title from "components/Title/Title";
 import ListElement from "components/ListElement/ListElement";
 // Icons
 import { ReactComponent as Check } from "icons/check.svg";
-// Interfaces
-import { ListItem } from "interfaces";
+// Context
+import { useStateContext } from "StateContext";
 
-interface Props {
-  list: ListItem[];
-  setList: React.Dispatch<React.SetStateAction<ListItem[]>>;
-}
+const Completed = () => {
+  const { list, setList } = useStateContext();
 
-const Completed = ({ list, setList }: Props) => {
   return (
     <Box>
       <Title icon={<Icon icon={<Check />} color="green" />}>COMPLETED</Title>

@@ -6,18 +6,21 @@ import ToDoList from "views/ToDoList/ToDoList";
 import Completed from "views/Completed/Completed";
 // Interfaces
 import { ListItem } from "interfaces";
+// Context
+import StateContextProvider from "StateContext";
 
 function App() {
-  const [list, setList] = useState<ListItem[]>([]);
   return (
     <div className={styles.container}>
       <header className={styles.header}>
         <span>To-Do App</span>
       </header>
       <div className={styles.viewsWrapper}>
-        <AddItem list={list} setList={setList} />
-        <ToDoList list={list} setList={setList} />
-        <Completed list={list} setList={setList} />
+        <StateContextProvider>
+          <AddItem />
+          <ToDoList />
+          <Completed />
+        </StateContextProvider>
       </div>
       <footer />
     </div>
