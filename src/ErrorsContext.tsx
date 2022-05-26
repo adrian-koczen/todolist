@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
+import Errors from "views/Errors/Errors";
 
 interface Props {
   children: React.ReactNode;
@@ -40,6 +41,7 @@ const ErrorsContext = ({ children }: Props) => {
   return (
     <Context.Provider value={{ errors, addError, removeError }}>
       {children}
+      <Errors />
     </Context.Provider>
   );
 };

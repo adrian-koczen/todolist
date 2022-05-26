@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 // Interfaces
 import { ListItem } from "interfaces";
@@ -8,15 +8,19 @@ import { ReactComponent as Bin } from "icons/bin.svg";
 import { ReactComponent as Check } from "icons/check2.svg";
 // Functions
 import { getElementIndex } from "functions";
+// Views
+import ModifyElement from "views/ModifyElement/ModifyElement";
+// Contexts
+import { useStateContext } from "StateContext";
+import { useModalContext } from "ModalContext";
 
 interface Props {
   listItem: ListItem;
-  setList: React.Dispatch<React.SetStateAction<ListItem[]>>;
-  key: string;
-  list: ListItem[];
 }
 
-const ListElement = ({ list, listItem, setList }: Props) => {
+const ListElement = ({ listItem }: Props) => {
+  let { list, setList } = useStateContext();
+  const { openModal } = useModalContext();
   const { task } = listItem;
 
   function setCompleted() {
@@ -24,6 +28,7 @@ const ListElement = ({ list, listItem, setList }: Props) => {
     if (index !== undefined) {
       let element = list[index];
       element.completed = true;
+      element.endDate = new Date();
       const newList = list.slice();
       newList[index] = element;
       setList(newList);
@@ -46,10 +51,14 @@ const ListElement = ({ list, listItem, setList }: Props) => {
             <Check />
           </div>
         )}
+
         <span className={styles.task}>{task}</span>
       </div>
       <div className={styles.functionsContainer}>
-        <Pencil className={`${styles.functionIcon} ${styles.green}`} />
+        <Pencil
+          className={`${styles.functionIcon} ${styles.green}`}
+          onClick={() => openModal(<ModifyElement />)}
+        />
         <Bin
           className={`${styles.functionIcon} ${styles.red}`}
           onClick={() => remove()}

@@ -18,14 +18,7 @@ const Completed = () => {
       {list &&
         list.map((item) => {
           if (item.completed) {
-            return (
-              <ListElement
-                key={item.id}
-                listItem={item}
-                setList={setList}
-                list={list}
-              />
-            );
+            return <ListElement key={item.id} listItem={item} />;
           } else {
             return null;
           }

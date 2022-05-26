@@ -15,7 +15,7 @@ export interface ListItem {
   id: string;
   task: string;
   priority: ConvertedPriority;
-  createTime: Date;
+  createDate: Date;
   endDate?: Date;
   completed?: Boolean;
 }

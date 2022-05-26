@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 // Interfaces
 import { ListItem } from "interfaces";
 
@@ -9,17 +9,20 @@ interface Props {
 interface State {
   list: ListItem[];
   setList: React.Dispatch<React.SetStateAction<ListItem[]>>;
+  //setList: (setList: ListItem[]) => void;
 }
 
 const initialState = {
   list: [],
-  setList: () => [],
+  setList: () => {},
 };
 
 const Context = createContext<State>(initialState);
 
 const StateContextProvider = ({ children }: Props) => {
   const [list, setList] = useState<ListItem[]>([]);
+
+  useEffect(() => () => console.log("asdasd"), []);
 
   return (
     <Context.Provider value={{ list, setList }}>{children}</Context.Provider>

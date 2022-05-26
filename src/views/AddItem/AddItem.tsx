@@ -41,7 +41,7 @@ const AddItem = () => {
       addItemToList({
         task: values.task,
         priority: priority,
-        createTime: new Date(),
+        createDate: new Date(),
         completed: false,
       });
     },
