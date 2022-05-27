@@ -2,35 +2,37 @@
   width: 100%;
   min-width: 200px;
   flex-direction: row;
-  position: absolute;
-  top: -30px;
   display: flex;
   flex-direction: row;
-  padding-bottom: 10px;
-  .border {
+  padding-bottom: 20px;
+  position: relative;
+  border-bottom: 1px solid #ededed;
+
+  .icon {
     position: absolute;
-    top: 75px;
-    width: 85%;
-    height: 1px;
-    background-color: #ededed;
+    top: -55px;
   }
+
+  .content {
+    margin-left: 100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+
   @media screen and (min-width: 340px) {
-    top: -45px;
-    .border {
-      top: 95px;
-      width: 95%;
-    }
   }
 
   .title {
-    position: absolute;
     color: #7f8fbf;
-    left: 70px;
-    top: 40px;
 
     @media screen and (min-width: 340px) {
-      left: 100px;
-      top: 60px;
     }
   }
 }

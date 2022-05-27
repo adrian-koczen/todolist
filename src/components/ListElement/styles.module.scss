@@ -44,7 +44,7 @@
     }
   }
 
-  .priority {
+  .completeButton {
     margin-right: 20px;
     min-width: 35px;
     min-height: 35px;
@@ -55,6 +55,27 @@
     color: #ffffff;
     padding: 4px;
     cursor: pointer;
+  }
+
+  .priority {
+    text-align: center;
+    color: #ffffff;
+    min-width: 20px;
+    min-height: 20px;
+    border-radius: 5px;
+    margin-right: 5px;
+
+    &.priorityHigh {
+      background-color: $red;
+    }
+
+    &.priorityMedium {
+      background-color: $yellow;
+    }
+
+    &.priorityLow {
+      background-color: $green;
+    }
   }
 
   .functionsContainer {

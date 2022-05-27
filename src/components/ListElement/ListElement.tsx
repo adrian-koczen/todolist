@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 // Interfaces
 import { ListItem } from "interfaces";
@@ -7,21 +7,22 @@ import { ReactComponent as Pencil } from "icons/pencil.svg";
 import { ReactComponent as Bin } from "icons/bin.svg";
 import { ReactComponent as Check } from "icons/check2.svg";
 // Functions
-import { getElementIndex } from "functions";
+import { getElementIndex, showPriority } from "functions";
 // Views
 import ModifyElement from "views/ModifyElement/ModifyElement";
 // Contexts
-import { useStateContext } from "StateContext";
+import { useTaskContext } from "StateContext";
 import { useModalContext } from "ModalContext";
+import { getPriority } from "os";
 
 interface Props {
   listItem: ListItem;
 }
 
 const ListElement = ({ listItem }: Props) => {
-  let { list, setList } = useStateContext();
+  let { list, setList } = useTaskContext();
   const { openModal } = useModalContext();
-  const { task } = listItem;
+  const { task, completed, priority } = listItem;
 
   function setCompleted() {
     const index = getElementIndex(list, listItem);
@@ -46,19 +47,34 @@ const ListElement = ({ listItem }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.leftSide}>
-        {!listItem.completed && (
-          <div className={styles.priority} onClick={() => setCompleted()}>
+        {!completed && (
+          <div className={styles.completeButton} onClick={() => setCompleted()}>
             <Check />
           </div>
         )}
-
+        <span
+          className={`${styles.priority} ${
+            priority === 0
+              ? styles.priorityHigh
+              : priority === 1
+              ? styles.priorityMedium
+              : priority === 2
+              ? styles.priorityLow
+              : null
+          }`}
+        >
+          {showPriority(priority)}
+        </span>
         <span className={styles.task}>{task}</span>
       </div>
       <div className={styles.functionsContainer}>
-        <Pencil
-          className={`${styles.functionIcon} ${styles.green}`}
-          onClick={() => openModal(<ModifyElement listItem={listItem} />)}
-        />
+        {!completed && (
+          <Pencil
+            className={`${styles.functionIcon} ${styles.green}`}
+            onClick={() => openModal(<ModifyElement id={listItem.id} />)}
+          />
+        )}
+
         <Bin
           className={`${styles.functionIcon} ${styles.red}`}
           onClick={() => remove()}

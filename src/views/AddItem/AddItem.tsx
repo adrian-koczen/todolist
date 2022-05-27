@@ -12,9 +12,9 @@ import Title from "components/Title/Title";
 // Interfaces
 import { FormItem, ListItem, Priority } from "interfaces";
 // Functions
-import { convertPriority, compare, isTaskInArray } from "functions";
+import { compare, convertPriority, isTaskInArray } from "functions";
 // Context
-import { useStateContext } from "StateContext";
+import { useTaskContext } from "StateContext";
 import { useErrorContext } from "ErrorsContext";
 
 const initialValues: FormItem = {
@@ -30,7 +30,7 @@ const ItemValidationSchema = Yup.object().shape({
 });
 
 const AddItem = () => {
-  const { list, setList } = useStateContext();
+  const { list, setList } = useTaskContext();
   const { addError } = useErrorContext();
 
   const formik = useFormik<FormItem>({

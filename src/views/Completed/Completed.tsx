@@ -7,10 +7,10 @@ import ListElement from "components/ListElement/ListElement";
 // Icons
 import { ReactComponent as Check } from "icons/check.svg";
 // Context
-import { useStateContext } from "StateContext";
+import { useTaskContext } from "StateContext";
 
 const Completed = () => {
-  const { list, setList } = useStateContext();
+  const { list, setList } = useTaskContext();
 
   return (
     <Box>

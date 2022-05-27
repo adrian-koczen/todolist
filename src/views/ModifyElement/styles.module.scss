@@ -1,0 +1,70 @@
+@import "../../styles/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  .task {
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 20px;
+
+    select {
+      width: 100%;
+      border: 1px solid $blue;
+      padding: 5px;
+      &:focus {
+        outline: none;
+      }
+      option {
+        background-color: #eff7f6;
+      }
+    }
+
+    label {
+      margin-top: 10px;
+      margin-bottom: 5px;
+      font-size: 13px;
+      color: $blue;
+    }
+
+    input {
+      width: 100%;
+      border: none;
+      line-height: 30px;
+      font-size: 16px;
+      border-bottom: 2px solid $blue;
+      &:focus {
+        outline: none;
+      }
+      &::placeholder {
+        color: #c0bcbc;
+      }
+    }
+
+    button {
+      background-color: $blue;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      box-shadow: 0px 0px 14px -3px rgb(167, 168, 185);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      cursor: pointer;
+      border: none;
+      padding: 4px;
+    }
+  }
+}

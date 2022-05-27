@@ -9,7 +9,6 @@ interface Props {
 interface State {
   list: ListItem[];
   setList: React.Dispatch<React.SetStateAction<ListItem[]>>;
-  //setList: (setList: ListItem[]) => void;
 }
 
 const initialState = {
@@ -19,16 +18,14 @@ const initialState = {
 
 const Context = createContext<State>(initialState);
 
-const StateContextProvider = ({ children }: Props) => {
+const TaskContext = ({ children }: Props) => {
   const [list, setList] = useState<ListItem[]>([]);
-
-  useEffect(() => () => console.log("asdasd"), []);
 
   return (
     <Context.Provider value={{ list, setList }}>{children}</Context.Provider>
   );
 };
 
-export const useStateContext = () => useContext(Context);
+export const useTaskContext = () => useContext(Context);
 
-export default StateContextProvider;
+export default TaskContext;

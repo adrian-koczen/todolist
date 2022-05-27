@@ -5,27 +5,27 @@ import AddItem from "views/AddItem/AddItem";
 import ToDoList from "views/ToDoList/ToDoList";
 import Completed from "views/Completed/Completed";
 // Context
-import StateContextProvider from "StateContext";
+import TaskContext from "StateContext";
 import ErrorsContext from "ErrorsContext";
 import ModalContext from "ModalContext";
 
 function App() {
   return (
     <div className={styles.container}>
-      <ModalContext>
-        <header>
-          <span>To-Do App</span>
-        </header>
-        <ErrorsContext>
-          <div className={styles.viewsWrapper}>
-            <StateContextProvider>
+      <header>
+        <span>To-Do App</span>
+      </header>
+      <ErrorsContext>
+        <TaskContext>
+          <ModalContext>
+            <div className={styles.viewsWrapper}>
               <AddItem />
               <ToDoList />
               <Completed />
-            </StateContextProvider>
-          </div>
-        </ErrorsContext>
-      </ModalContext>
+            </div>
+          </ModalContext>
+        </TaskContext>
+      </ErrorsContext>
       <footer />
     </div>
   );

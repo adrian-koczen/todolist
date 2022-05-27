@@ -3,17 +3,23 @@ import styles from "./styles.module.scss";
 
 interface Props {
   icon: React.ReactNode;
+  options?: React.ReactNode[];
   children: string;
 }
 
-const Title = ({ icon, ...props }: Props) => {
+const Title = ({ icon, options, ...props }: Props) => {
   return (
     <div className={styles.container}>
+      <div className={styles.icon}>{icon}</div>
       <div className={styles.content}>
-        {icon}
         <span className={styles.title}>{props.children}</span>
+        <div className={styles.options}>
+          {options &&
+            options.map((option, i) => {
+              return <div key={i}>{option}</div>;
+            })}
+        </div>
       </div>
-      <div className={styles.border}></div>
     </div>
   );
 };

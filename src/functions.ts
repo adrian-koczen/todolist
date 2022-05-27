@@ -9,6 +9,21 @@ export function convertPriority(priority: Priority) {
       return 1;
     case Priority.high:
       return 0;
+    default:
+      return priority;
+  }
+}
+
+export function convertPriorityBack(priority: number) {
+  switch (priority) {
+    case 2:
+      return Priority.low;
+    case 1:
+      return Priority.medium;
+    case 0:
+      return Priority.high;
+    default:
+      return Priority.low;
   }
 }
 
@@ -31,9 +46,22 @@ export function isTaskInArray(
 }
 
 export function getElementIndex(list: ListItem[], listItem: ListItem) {
-  let element = list.find((el) => el === listItem);
+  let element = list.find((el) => el.id === listItem.id);
   if (element !== undefined) {
     let index = list.indexOf(element);
     return index;
+  }
+}
+
+export function showPriority(priority: number) {
+  switch (priority) {
+    case 2:
+      return "L";
+    case 1:
+      return "M";
+    case 0:
+      return "H";
+    default:
+      return "";
   }
 }
