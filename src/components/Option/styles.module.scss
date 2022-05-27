@@ -1,5 +1,12 @@
+@import "../../styles/_variables";
+
 .container {
   cursor: pointer;
   min-height: 20px;
   min-width: 20px;
+  color: #858080;
+
+  &:hover {
+    color: rgb(0, 0, 0);
+  }
 }

@@ -27,7 +27,7 @@ export function convertPriorityBack(priority: number) {
   }
 }
 
-export function compare(a: ListItem, b: ListItem) {
+export function higherToLowerPriority(a: ListItem, b: ListItem) {
   if (a.priority < b.priority) {
     return -1;
   }

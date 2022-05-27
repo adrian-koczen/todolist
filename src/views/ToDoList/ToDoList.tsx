@@ -15,7 +15,7 @@ import { useTaskContext } from "StateContext";
 import { useModalContext } from "ModalContext";
 
 const ToDoList = () => {
-  const { list, setList } = useTaskContext();
+  const { list, setList, filteredList } = useTaskContext();
   const { openModal } = useModalContext();
 
   return (
@@ -30,14 +30,18 @@ const ToDoList = () => {
       >
         TO-DO LIST
       </Title>
-      {list &&
+      {filteredList.length ? (
+        <div>Filtered list</div>
+      ) : (
+        list &&
         list.map((item) => {
           if (!item.completed) {
             return <ListElement key={item.id} listItem={item} />;
           } else {
             return null;
           }
-        })}
+        })
+      )}
     </Box>
   );
 };

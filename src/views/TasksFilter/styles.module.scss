@@ -1,0 +1,33 @@
+@import "../../styles/_variables";
+
+.container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+
+  .title {
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    label {
+      width: 100%;
+      @include label;
+    }
+
+    select {
+      width: 100%;
+      @include select;
+    }
+
+    button {
+      @include saveButton;
+    }
+  }
+}

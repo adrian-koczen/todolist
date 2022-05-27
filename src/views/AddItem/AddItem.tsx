@@ -12,7 +12,11 @@ import Title from "components/Title/Title";
 // Interfaces
 import { FormItem, ListItem, Priority } from "interfaces";
 // Functions
-import { compare, convertPriority, isTaskInArray } from "functions";
+import {
+  higherToLowerPriority,
+  convertPriority,
+  isTaskInArray,
+} from "functions";
 // Context
 import { useTaskContext } from "StateContext";
 import { useErrorContext } from "ErrorsContext";
@@ -49,7 +53,9 @@ const AddItem = () => {
 
   function addItemToList(listItem: Omit<ListItem, "id">) {
     if (!isTaskInArray(list, listItem)) {
-      setList((prev) => [...prev, { id: uuidv4(), ...listItem }].sort(compare));
+      setList((prev) =>
+        [...prev, { id: uuidv4(), ...listItem }].sort(higherToLowerPriority)
+      );
     } else {
       addError("Element is already in array.");
     }

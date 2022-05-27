@@ -4,3 +4,49 @@ $yellow: #ffb200;
 $green: #52cd6c;
 $red: #f92200;
 $gray: #e2e2e2;
+
+@mixin input {
+  border: none;
+  line-height: 30px;
+  font-size: 16px;
+  border-bottom: 2px solid $blue;
+  &:focus {
+    outline: none;
+  }
+  &::placeholder {
+    color: #c0bcbc;
+  }
+}
+
+@mixin label {
+  margin: 10px 0px;
+  font-size: 13px;
+  color: $blue;
+}
+
+@mixin select {
+  border: 1px solid $blue;
+  padding: 5px;
+  &:focus {
+    outline: none;
+  }
+  option {
+    background-color: #eff7f6;
+  }
+}
+
+@mixin saveButton {
+  background-color: $blue;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  box-shadow: 0px 0px 14px -3px rgb(167, 168, 185);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  border: none;
+  padding: 4px;
+}

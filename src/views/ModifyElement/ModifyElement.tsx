@@ -7,7 +7,11 @@ import { ListItem, Priority } from "interfaces";
 // Icons
 import { ReactComponent as Check } from "icons/check2.svg";
 // Functions
-import { compare, convertPriority, convertPriorityBack } from "functions";
+import {
+  higherToLowerPriority,
+  convertPriority,
+  convertPriorityBack,
+} from "functions";
 // Context
 import { useModalContext } from "ModalContext";
 import { useTaskContext } from "StateContext";
@@ -56,7 +60,7 @@ const ModifyElement = ({ id }: Props) => {
       newElement.task = task;
       newElement.priority = convertPriority(priority);
       list[index] = newElement;
-      let newList = list.sort(compare);
+      let newList = list.sort(higherToLowerPriority);
       setList(newList);
       closeModal();
     }
@@ -72,15 +76,15 @@ const ModifyElement = ({ id }: Props) => {
 
   return (
     <div className={styles.container}>
-      <span className={styles.task}>Task</span>
+      <span className={styles.task}>Modify task</span>
       <form onSubmit={formik.handleSubmit}>
-        <label>Change task</label>
+        <label>Task</label>
         <input
           id="task"
           value={formik.values.task}
           onChange={formik.handleChange}
         ></input>
-        <label>Change priority</label>
+        <label>Priority</label>
         <select
           id="priority"
           value={formik.values.priority}
