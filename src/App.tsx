@@ -18,15 +18,13 @@ function App() {
       </header>
       <ErrorsContext>
         <TaskContext>
-          <FilterContext>
-            <ModalContext>
-              <div className={styles.viewsWrapper}>
-                <AddItem />
-                <ToDoList />
-                <Completed />
-              </div>
-            </ModalContext>
-          </FilterContext>
+          <ModalContext>
+            <div className={styles.viewsWrapper}>
+              <AddItem />
+              <ToDoList />
+              <Completed />
+            </div>
+          </ModalContext>
         </TaskContext>
       </ErrorsContext>
       <footer />

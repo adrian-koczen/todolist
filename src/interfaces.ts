@@ -19,3 +19,7 @@ export interface ListItem {
   endDate?: Date;
   completed?: Boolean;
 }
+
+export interface Filters {
+  visibility: number;
+}

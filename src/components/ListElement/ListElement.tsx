@@ -6,6 +6,7 @@ import { ListItem } from "interfaces";
 import { ReactComponent as Pencil } from "icons/pencil.svg";
 import { ReactComponent as Bin } from "icons/bin.svg";
 import { ReactComponent as Check } from "icons/check2.svg";
+import { ReactComponent as Menu } from "icons/menu.svg";
 // Functions
 import { getElementIndex, showPriority } from "functions";
 // Views
@@ -43,12 +44,25 @@ const ListElement = ({ listItem }: Props) => {
     }
   }
 
+  function moveToList() {
+    const index = getElementIndex(list, listItem);
+    let tempArr = list.slice();
+    if (index !== undefined) {
+      tempArr[index].completed = false;
+      setList(tempArr);
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.leftSide}>
-        {!completed && (
+        {!completed ? (
           <div className={styles.completeButton} onClick={() => setCompleted()}>
             <Check />
+          </div>
+        ) : (
+          <div className={styles.moveToList} onClick={() => moveToList()}>
+            <Menu />
           </div>
         )}
         <span
@@ -73,7 +87,6 @@ const ListElement = ({ listItem }: Props) => {
             onClick={() => openModal(<ModifyElement id={listItem.id} />)}
           />
         )}
-
         <Bin
           className={`${styles.functionIcon} ${styles.red}`}
           onClick={() => remove()}

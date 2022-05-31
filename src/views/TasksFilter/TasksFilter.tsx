@@ -5,11 +5,17 @@ import { useFormik } from "formik";
 import { ReactComponent as Check } from "icons/check2.svg";
 // Context
 import { useModalContext } from "ModalContext";
-import { useFilterContext } from "FilterContext";
+// Interfaces
+import { Filters } from "interfaces";
 
-const TasksFilter = () => {
+interface Props {
+  filters: Filters;
+  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+}
+
+const TasksFilter = ({ filters, setFilters }: Props) => {
   const { closeModal } = useModalContext();
-  const { setFilters, filters } = useFilterContext();
+  //const { setFilters, filters } = useFilterContext();
 
   const initialValues = filters;
 

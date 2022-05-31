@@ -60,7 +60,7 @@ const ModifyElement = ({ id }: Props) => {
       newElement.task = task;
       newElement.priority = convertPriority(priority);
       list[index] = newElement;
-      let newList = list.sort(higherToLowerPriority);
+      let newList = list.slice().sort(higherToLowerPriority);
       setList(newList);
       closeModal();
     }
