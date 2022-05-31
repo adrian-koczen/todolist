@@ -95,9 +95,7 @@ const ModifyElement = ({ id }: Props) => {
           <option value={Priority.high}>High</option>
         </select>
         <label>Save</label>
-        <button type="submit">
-          <Check />
-        </button>
+        <button type="submit">Save</button>
       </form>
     </div>
   );

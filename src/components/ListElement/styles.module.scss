@@ -26,16 +26,20 @@
       border: none;
     }
 
-    .moveToList {
+    .notCompletedButton {
       min-width: 20px;
       min-height: 16px;
       width: 20px;
       height: 20px;
-      background-color: $yellow;
+      background-color: $gray;
       color: #ffffff;
       border-radius: 4px;
       margin-right: 5px;
       cursor: pointer;
+
+      &:hover {
+        background-color: rgb(155, 155, 145);
+      }
     }
   }
 

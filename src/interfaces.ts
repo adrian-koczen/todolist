@@ -22,4 +22,5 @@ export interface ListItem {
 
 export interface Filters {
   visibility: number;
+  searchText: string | null;
 }

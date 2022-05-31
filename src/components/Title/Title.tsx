@@ -16,7 +16,11 @@ const Title = ({ icon, options, ...props }: Props) => {
         <div className={styles.options}>
           {options &&
             options.map((option, i) => {
-              return <div key={i}>{option}</div>;
+              return (
+                <div className={styles.option} key={i}>
+                  {option}
+                </div>
+              );
             })}
         </div>
       </div>

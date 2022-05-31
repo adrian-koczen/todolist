@@ -44,11 +44,12 @@ const ListElement = ({ listItem }: Props) => {
     }
   }
 
-  function moveToList() {
+  function setNotCompleted() {
     const index = getElementIndex(list, listItem);
     let tempArr = list.slice();
     if (index !== undefined) {
       tempArr[index].completed = false;
+      delete tempArr[index].endDate;
       setList(tempArr);
     }
   }
@@ -61,7 +62,10 @@ const ListElement = ({ listItem }: Props) => {
             <Check />
           </div>
         ) : (
-          <div className={styles.moveToList} onClick={() => moveToList()}>
+          <div
+            className={styles.notCompletedButton}
+            onClick={() => setNotCompleted()}
+          >
             <Menu />
           </div>
         )}

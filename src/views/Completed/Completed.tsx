@@ -20,7 +20,10 @@ const Completed = () => {
   const { list, setList } = useTaskContext();
   const { openModal } = useModalContext();
   const [filteredList, setFilteredList] = useState<ListItem[] | null>(null);
-  const [filters, setFilters] = useState<Filters>({ visibility: -1 });
+  const [filters, setFilters] = useState<Filters>({
+    visibility: -1,
+    searchText: null,
+  });
 
   useEffect(() => {
     // Visibility

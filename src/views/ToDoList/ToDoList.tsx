@@ -7,9 +7,11 @@ import ListElement from "components/ListElement/ListElement";
 import Option from "components/Option/Option";
 // Views
 import TasksFilter from "views/TasksFilter/TasksFilter";
+import Search from "views/Search/Search";
 // Icons
 import { ReactComponent as Menu } from "icons/menu.svg";
 import { ReactComponent as Filter } from "icons/filter.svg";
+import { ReactComponent as SearchIcon } from "icons/search.svg";
 // Context
 import { useTaskContext } from "TaskContext";
 import { useModalContext } from "ModalContext";
@@ -20,7 +22,10 @@ const ToDoList = () => {
   const { list, setList } = useTaskContext();
   const { openModal } = useModalContext();
   const [filteredList, setFilteredList] = useState<ListItem[] | null>(null);
-  const [filters, setFilters] = useState<Filters>({ visibility: -1 });
+  const [filters, setFilters] = useState<Filters>({
+    visibility: -1,
+    searchText: null,
+  });
 
   useEffect(() => {
     // Visibility
@@ -29,6 +34,14 @@ const ToDoList = () => {
     } else {
       setFilteredList(null);
     }
+
+    // Search Text
+    if (filters.searchText !== null) {
+      let searchTerm = filters.searchText;
+      setFilteredList(
+        list.filter((el) => el.task.toLowerCase().includes(searchTerm))
+      );
+    }
   }, [filters, list]);
 
   return (
@@ -36,6 +49,17 @@ const ToDoList = () => {
       <Title
         icon={<Icon color="yellow" icon={<Menu />} />}
         options={[
+          <Option
+            icon={
+              <SearchIcon
+                onClick={() =>
+                  openModal(
+                    <Search filters={filters} setFilters={setFilters} />
+                  )
+                }
+              />
+            }
+          />,
           <Option
             icon={
               <Filter

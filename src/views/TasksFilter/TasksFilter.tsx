@@ -22,7 +22,8 @@ const TasksFilter = ({ filters, setFilters }: Props) => {
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
-      setFilters({ visibility: Number(values.visibility) });
+      //setFilters({ visibility: Number(values.visibility), searchText: "null" });
+      setFilters({ ...filters, visibility: Number(values.visibility) });
       closeModal();
     },
   });
@@ -43,9 +44,7 @@ const TasksFilter = ({ filters, setFilters }: Props) => {
           <option value={2}>Only low priority</option>
         </select>
         <label>Save</label>
-        <button type="submit">
-          <Check />
-        </button>
+        <button type="submit">Save</button>
       </form>
     </div>
   );
