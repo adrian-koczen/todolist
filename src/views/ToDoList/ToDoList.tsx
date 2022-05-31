@@ -11,11 +11,13 @@ import TasksFilter from "views/TasksFilter/TasksFilter";
 import { ReactComponent as Menu } from "icons/menu.svg";
 import { ReactComponent as Filter } from "icons/filter.svg";
 // Context
-import { useTaskContext } from "StateContext";
+import { useTaskContext } from "TaskContext";
 import { useModalContext } from "ModalContext";
+import { useFilterContext } from "FilterContext";
 
 const ToDoList = () => {
-  const { list, setList, filteredList } = useTaskContext();
+  const { list, setList } = useTaskContext();
+  const { filteredList, filters } = useFilterContext();
   const { openModal } = useModalContext();
 
   return (
@@ -30,18 +32,22 @@ const ToDoList = () => {
       >
         TO-DO LIST
       </Title>
-      {filteredList.length ? (
-        <div>Filtered list</div>
-      ) : (
-        list &&
-        list.map((item) => {
-          if (!item.completed) {
-            return <ListElement key={item.id} listItem={item} />;
-          } else {
-            return null;
-          }
-        })
-      )}
+      {filteredList
+        ? filteredList.map((item) => {
+            if (!item.completed) {
+              return <ListElement key={item.id} listItem={item} />;
+            } else {
+              return null;
+            }
+          })
+        : list &&
+          list.map((item) => {
+            if (!item.completed) {
+              return <ListElement key={item.id} listItem={item} />;
+            } else {
+              return null;
+            }
+          })}
     </Box>
   );
 };

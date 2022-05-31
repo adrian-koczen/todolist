@@ -5,9 +5,10 @@ import AddItem from "views/AddItem/AddItem";
 import ToDoList from "views/ToDoList/ToDoList";
 import Completed from "views/Completed/Completed";
 // Context
-import TaskContext from "StateContext";
+import TaskContext from "TaskContext";
 import ErrorsContext from "ErrorsContext";
 import ModalContext from "ModalContext";
+import FilterContext from "FilterContext";
 
 function App() {
   return (
@@ -17,13 +18,15 @@ function App() {
       </header>
       <ErrorsContext>
         <TaskContext>
-          <ModalContext>
-            <div className={styles.viewsWrapper}>
-              <AddItem />
-              <ToDoList />
-              <Completed />
-            </div>
-          </ModalContext>
+          <FilterContext>
+            <ModalContext>
+              <div className={styles.viewsWrapper}>
+                <AddItem />
+                <ToDoList />
+                <Completed />
+              </div>
+            </ModalContext>
+          </FilterContext>
         </TaskContext>
       </ErrorsContext>
       <footer />

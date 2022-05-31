@@ -11,9 +11,8 @@ import { getElementIndex, showPriority } from "functions";
 // Views
 import ModifyElement from "views/ModifyElement/ModifyElement";
 // Contexts
-import { useTaskContext } from "StateContext";
+import { useTaskContext } from "TaskContext";
 import { useModalContext } from "ModalContext";
-import { getPriority } from "os";
 
 interface Props {
   listItem: ListItem;

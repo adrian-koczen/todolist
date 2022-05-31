@@ -5,29 +5,21 @@ import { useFormik } from "formik";
 import { ReactComponent as Check } from "icons/check2.svg";
 // Context
 import { useModalContext } from "ModalContext";
-import { useTaskContext } from "StateContext";
-
-const initialValues = {
-  visibility: 0,
-};
+import { useFilterContext } from "FilterContext";
 
 const TasksFilter = () => {
   const { closeModal } = useModalContext();
-  const { list, setFilteredList, filteredList } = useTaskContext();
+  const { setFilters, filters } = useFilterContext();
+
+  const initialValues = filters;
 
   const formik = useFormik({
     initialValues: initialValues,
-    onSubmit: (values) => {},
+    onSubmit: (values) => {
+      setFilters({ visibility: Number(values.visibility) });
+      closeModal();
+    },
   });
-
-  function setVisibility(e: any) {
-    const filteredByPriority = list.filter(
-      (el) => el.priority === e.target.value
-    );
-    //setFilteredList(filteredByPriority);
-    console.log(filteredByPriority);
-    closeModal();
-  }
 
   return (
     <div className={styles.container}>
@@ -37,9 +29,9 @@ const TasksFilter = () => {
         <select
           id="visibility"
           value={formik.values.visibility}
-          onChange={setVisibility}
+          onChange={formik.handleChange}
         >
-          <option value={0}></option>
+          <option value={-1}>All</option>
           <option value={0}>Only high priority</option>
           <option value={1}>Only medium priority</option>
           <option value={2}>Only low priority</option>

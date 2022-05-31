@@ -7,7 +7,7 @@ import ListElement from "components/ListElement/ListElement";
 // Icons
 import { ReactComponent as Check } from "icons/check.svg";
 // Context
-import { useTaskContext } from "StateContext";
+import { useTaskContext } from "TaskContext";
 
 const Completed = () => {
   const { list, setList } = useTaskContext();
