@@ -22,5 +22,6 @@ export interface ListItem {
 
 export interface Filters {
   visibility: number;
+  sort: "task" | "createDate" | "endDate" | "priority";
   searchText: string | null;
 }

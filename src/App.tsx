@@ -8,7 +8,6 @@ import Completed from "views/Completed/Completed";
 import TaskContext from "TaskContext";
 import ErrorsContext from "ErrorsContext";
 import ModalContext from "ModalContext";
-import FilterContext from "FilterContext";
 
 function App() {
   return (

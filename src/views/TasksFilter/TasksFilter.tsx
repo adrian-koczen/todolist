@@ -1,29 +1,31 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { useFormik } from "formik";
-// Icons
-import { ReactComponent as Check } from "icons/check2.svg";
 // Context
 import { useModalContext } from "ModalContext";
 // Interfaces
 import { Filters } from "interfaces";
 
 interface Props {
+  tab: "todo" | "completed";
   filters: Filters;
   setFilters: React.Dispatch<React.SetStateAction<Filters>>;
 }
 
-const TasksFilter = ({ filters, setFilters }: Props) => {
+const TasksFilter = ({ filters, setFilters, tab }: Props) => {
   const { closeModal } = useModalContext();
-  //const { setFilters, filters } = useFilterContext();
 
   const initialValues = filters;
 
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
-      //setFilters({ visibility: Number(values.visibility), searchText: "null" });
-      setFilters({ ...filters, visibility: Number(values.visibility) });
+      console.log(values);
+      setFilters({
+        ...filters,
+        visibility: Number(values.visibility),
+        sort: values.sort,
+      });
       closeModal();
     },
   });
@@ -42,6 +44,17 @@ const TasksFilter = ({ filters, setFilters }: Props) => {
           <option value={0}>Only high priority</option>
           <option value={1}>Only medium priority</option>
           <option value={2}>Only low priority</option>
+        </select>
+        <label>Sort by</label>
+        <select
+          id="sort"
+          value={formik.values.sort}
+          onChange={formik.handleChange}
+        >
+          <option value={"priority"}>Priority</option>
+          <option value={"task"}>Task name</option>
+          <option value={"createDate"}>Create date</option>
+          {tab === "completed" && <option value={"endDate"}>End date</option>}
         </select>
         <label>Save</label>
         <button type="submit">Save</button>

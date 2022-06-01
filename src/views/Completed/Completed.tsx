@@ -15,6 +15,13 @@ import { useTaskContext } from "TaskContext";
 import { useModalContext } from "ModalContext";
 // Interfaces
 import { Filters, ListItem } from "interfaces";
+// Functions
+import {
+  sortByTask,
+  higherToLowerPriority,
+  sortByStartDate,
+  sortByEndDate,
+} from "functions";
 
 const Completed = () => {
   const { list, setList } = useTaskContext();
@@ -22,15 +29,42 @@ const Completed = () => {
   const [filteredList, setFilteredList] = useState<ListItem[] | null>(null);
   const [filters, setFilters] = useState<Filters>({
     visibility: -1,
+    sort: "priority",
     searchText: null,
   });
 
   useEffect(() => {
+    // Priority sort
+    if (filters.sort === "priority") {
+      setFilteredList(list.slice().sort(higherToLowerPriority));
+    }
+
+    // Task name sort
+    if (filters.sort === "task") {
+      setFilteredList(list.slice().sort(sortByTask));
+    }
+
+    // Create date sort
+    if (filters.sort === "createDate") {
+      setFilteredList(list.slice().sort(sortByStartDate));
+    }
+
+    // End date sort
+    if (filters.sort === "endDate") {
+      setFilteredList(list.slice().sort(sortByEndDate));
+    }
+
     // Visibility
     if (filters.visibility !== -1) {
       setFilteredList(list.filter((el) => el.priority === filters.visibility));
-    } else {
-      setFilteredList(null);
+    }
+
+    // Search Text
+    if (filters.searchText !== null) {
+      let searchTerm = filters.searchText;
+      setFilteredList(
+        list.filter((el) => el.task.toLowerCase().includes(searchTerm))
+      );
     }
   }, [filters, list]);
 
@@ -44,7 +78,11 @@ const Completed = () => {
               <Filter
                 onClick={() =>
                   openModal(
-                    <TasksFilter filters={filters} setFilters={setFilters} />
+                    <TasksFilter
+                      filters={filters}
+                      setFilters={setFilters}
+                      tab={"completed"}
+                    />
                   )
                 }
               />

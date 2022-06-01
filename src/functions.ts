@@ -65,3 +65,27 @@ export function showPriority(priority: number) {
       return "";
   }
 }
+
+export function sortByTask(a: ListItem, b: ListItem) {
+  return a.task.localeCompare(b.task);
+}
+
+export function sortByStartDate(a: ListItem, b: ListItem) {
+  if (a.createDate < b.createDate) {
+    return -1;
+  }
+  if (a.createDate > b.createDate) {
+    return 1;
+  }
+  return 0;
+}
+
+export function sortByEndDate(a: ListItem, b: ListItem) {
+  if (a.createDate < b.createDate) {
+    return 1;
+  }
+  if (a.createDate > b.createDate) {
+    return -1;
+  }
+  return 0;
+}

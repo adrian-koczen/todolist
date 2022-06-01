@@ -17,22 +17,38 @@ import { useTaskContext } from "TaskContext";
 import { useModalContext } from "ModalContext";
 // Interfaces
 import { ListItem, Filters } from "interfaces";
+// Functions
+import { sortByTask, higherToLowerPriority, sortByStartDate } from "functions";
 
 const ToDoList = () => {
   const { list, setList } = useTaskContext();
   const { openModal } = useModalContext();
-  const [filteredList, setFilteredList] = useState<ListItem[] | null>(null);
+  const [filteredList, setFilteredList] = useState<ListItem[]>([]);
   const [filters, setFilters] = useState<Filters>({
     visibility: -1,
+    sort: "priority",
     searchText: null,
   });
 
   useEffect(() => {
+    // Priority sort
+    if (filters.sort === "priority") {
+      setFilteredList(list.slice().sort(higherToLowerPriority));
+    }
+
+    // Task name sort
+    if (filters.sort === "task") {
+      setFilteredList(list.slice().sort(sortByTask));
+    }
+
+    // Create date sort
+    if (filters.sort === "createDate") {
+      setFilteredList(list.slice().sort(sortByStartDate));
+    }
+
     // Visibility
     if (filters.visibility !== -1) {
       setFilteredList(list.filter((el) => el.priority === filters.visibility));
-    } else {
-      setFilteredList(null);
     }
 
     // Search Text
@@ -65,7 +81,11 @@ const ToDoList = () => {
               <Filter
                 onClick={() =>
                   openModal(
-                    <TasksFilter filters={filters} setFilters={setFilters} />
+                    <TasksFilter
+                      filters={filters}
+                      setFilters={setFilters}
+                      tab={"todo"}
+                    />
                   )
                 }
               />
@@ -75,7 +95,7 @@ const ToDoList = () => {
       >
         TO-DO LIST
       </Title>
-      {filteredList
+      {filteredList.length > 0
         ? filteredList.map((item) => {
             if (!item.completed) {
               return <ListElement key={item.id} listItem={item} />;
