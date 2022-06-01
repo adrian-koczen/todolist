@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styles from "./styles.module.scss";
 // Interfaces
 import { ListItem } from "interfaces";
@@ -11,6 +11,7 @@ import { ReactComponent as Menu } from "icons/menu.svg";
 import { getElementIndex, showPriority } from "functions";
 // Views
 import ModifyElement from "views/ModifyElement/ModifyElement";
+import FullViewTask from "views/FullViewTask/FullViewTask";
 // Contexts
 import { useTaskContext } from "TaskContext";
 import { useModalContext } from "ModalContext";
@@ -82,7 +83,12 @@ const ListElement = ({ listItem }: Props) => {
         >
           {showPriority(priority)}
         </span>
-        <span className={styles.task}>{task}</span>
+        <span
+          onClick={() => openModal(<FullViewTask>{task}</FullViewTask>)}
+          className={styles.task}
+        >
+          {task}
+        </span>
       </div>
       <div className={styles.functionsContainer}>
         {!completed && (
