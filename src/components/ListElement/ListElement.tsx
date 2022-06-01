@@ -10,7 +10,7 @@ import { ReactComponent as Menu } from "icons/menu.svg";
 // Functions
 import { getElementIndex, showPriority } from "functions";
 // Views
-import ModifyElement from "views/ModifyElement/ModifyElement";
+import ModifyElement from "views/ModifyElement/ModifyTask";
 import FullViewTask from "views/FullViewTask/FullViewTask";
 // Contexts
 import { useTaskContext } from "TaskContext";

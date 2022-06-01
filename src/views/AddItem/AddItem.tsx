@@ -48,6 +48,7 @@ const AddItem = () => {
         createDate: new Date(),
         completed: false,
       });
+      formik.setFieldValue("task", "");
     },
   });
 

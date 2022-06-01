@@ -7,9 +7,11 @@ import ListElement from "components/ListElement/ListElement";
 import Option from "components/Option/Option";
 //Views
 import TasksFilter from "views/TasksFilter/TasksFilter";
+import Search from "views/Search/Search";
 // Icons
 import { ReactComponent as Check } from "icons/check.svg";
 import { ReactComponent as Filter } from "icons/filter.svg";
+import { ReactComponent as SearchIcon } from "icons/search.svg";
 // Context
 import { useTaskContext } from "TaskContext";
 import { useModalContext } from "ModalContext";
@@ -73,6 +75,17 @@ const Completed = () => {
       <Title
         icon={<Icon icon={<Check />} color="green" />}
         options={[
+          <Option
+            icon={
+              <SearchIcon
+                onClick={() =>
+                  openModal(
+                    <Search filters={filters} setFilters={setFilters} />
+                  )
+                }
+              />
+            }
+          />,
           <Option
             icon={
               <Filter

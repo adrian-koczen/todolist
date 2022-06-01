@@ -3,9 +3,7 @@ import styles from "./styles.module.scss";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 // Interfaces
-import { ListItem, Priority } from "interfaces";
-// Icons
-import { ReactComponent as Check } from "icons/check2.svg";
+import { Priority } from "interfaces";
 // Functions
 import {
   higherToLowerPriority,
