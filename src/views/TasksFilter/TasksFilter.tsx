@@ -9,10 +9,10 @@ import { Filters, SortOption, Visibility } from "interfaces";
 interface Props {
   tab: "todo" | "completed";
   filters: Filters;
-  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  updateFilters: (filters: Filters) => void;
 }
 
-const TasksFilter = ({ filters, setFilters, tab }: Props) => {
+const TasksFilter = ({ filters, updateFilters, tab }: Props) => {
   const { closeModal } = useModalContext();
 
   const initialValues = filters;
@@ -20,7 +20,7 @@ const TasksFilter = ({ filters, setFilters, tab }: Props) => {
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
-      setFilters({
+      updateFilters({
         ...filters,
         visibility: values.visibility,
         sort: values.sort,

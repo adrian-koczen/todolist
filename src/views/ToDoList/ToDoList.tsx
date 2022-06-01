@@ -26,7 +26,7 @@ import {
 } from "functions";
 
 const ToDoList = () => {
-  const { list, setList } = useTaskContext();
+  const { list } = useTaskContext();
   const { openModal } = useModalContext();
   const [filteredList, setFilteredList] = useState<ListItem[]>([]);
   const [filters, setFilters] = useState<Filters>({
@@ -41,17 +41,17 @@ const ToDoList = () => {
 
   useEffect(() => {
     // Priority sort
-    if (filters.sort === "priority") {
+    if (filters.sort === SortOption.priority) {
       setFilteredList(list.slice().sort(higherToLowerPriority));
     }
 
     // Task name sort
-    if (filters.sort === "task") {
+    if (filters.sort === SortOption.task) {
       setFilteredList(list.slice().sort(sortByTask));
     }
 
     // Create date sort
-    if (filters.sort === "createDate") {
+    if (filters.sort === SortOption.createDate) {
       setFilteredList(list.slice().sort(sortByStartDate));
     }
 
@@ -83,7 +83,7 @@ const ToDoList = () => {
               <SearchIcon
                 onClick={() =>
                   openModal(
-                    <Search filters={filters} setFilters={setFilters} />
+                    <Search filters={filters} updateFilters={updateFilters} />
                   )
                 }
               />
@@ -96,7 +96,7 @@ const ToDoList = () => {
                   openModal(
                     <TasksFilter
                       filters={filters}
-                      setFilters={setFilters}
+                      updateFilters={updateFilters}
                       tab={"todo"}
                     />
                   )
