@@ -16,13 +16,14 @@ import { ReactComponent as SearchIcon } from "icons/search.svg";
 import { useTaskContext } from "TaskContext";
 import { useModalContext } from "ModalContext";
 // Interfaces
-import { Filters, ListItem } from "interfaces";
+import { Filters, ListItem, SortOption, Visibility } from "interfaces";
 // Functions
 import {
   sortByTask,
   higherToLowerPriority,
   sortByStartDate,
   sortByEndDate,
+  convertVisibility,
 } from "functions";
 
 const Completed = () => {
@@ -30,8 +31,8 @@ const Completed = () => {
   const { openModal } = useModalContext();
   const [filteredList, setFilteredList] = useState<ListItem[] | null>(null);
   const [filters, setFilters] = useState<Filters>({
-    visibility: -1,
-    sort: "priority",
+    visibility: Visibility.all,
+    sort: SortOption.priority,
     searchText: null,
   });
 
@@ -57,8 +58,12 @@ const Completed = () => {
     }
 
     // Visibility
-    if (filters.visibility !== -1) {
-      setFilteredList(list.filter((el) => el.priority === filters.visibility));
+    if (filters.visibility !== Visibility.all) {
+      setFilteredList(
+        list.filter(
+          (el) => el.priority === convertVisibility(filters.visibility)
+        )
+      );
     }
 
     // Search Text

@@ -20,8 +20,22 @@ export interface ListItem {
   completed?: Boolean;
 }
 
+export enum SortOption {
+  task = "task",
+  createDate = "createDate",
+  endDate = "endDate",
+  priority = "priority",
+}
+
+export enum Visibility {
+  all = "all",
+  high = "high",
+  medium = "medium",
+  low = "low",
+}
+
 export interface Filters {
-  visibility: number;
-  sort: "task" | "createDate" | "endDate" | "priority";
+  visibility: Visibility;
+  sort: SortOption;
   searchText: string | null;
 }

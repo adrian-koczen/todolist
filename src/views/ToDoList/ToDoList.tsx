@@ -16,19 +16,28 @@ import { ReactComponent as SearchIcon } from "icons/search.svg";
 import { useTaskContext } from "TaskContext";
 import { useModalContext } from "ModalContext";
 // Interfaces
-import { ListItem, Filters } from "interfaces";
+import { ListItem, Filters, SortOption, Visibility } from "interfaces";
 // Functions
-import { sortByTask, higherToLowerPriority, sortByStartDate } from "functions";
+import {
+  sortByTask,
+  higherToLowerPriority,
+  sortByStartDate,
+  convertVisibility,
+} from "functions";
 
 const ToDoList = () => {
   const { list, setList } = useTaskContext();
   const { openModal } = useModalContext();
   const [filteredList, setFilteredList] = useState<ListItem[]>([]);
   const [filters, setFilters] = useState<Filters>({
-    visibility: -1,
-    sort: "priority",
+    visibility: Visibility.all,
+    sort: SortOption.priority,
     searchText: null,
   });
+
+  function updateFilters(filters: Filters) {
+    setFilters(filters);
+  }
 
   useEffect(() => {
     // Priority sort
@@ -47,8 +56,12 @@ const ToDoList = () => {
     }
 
     // Visibility
-    if (filters.visibility !== -1) {
-      setFilteredList(list.filter((el) => el.priority === filters.visibility));
+    if (filters.visibility !== Visibility.all) {
+      setFilteredList(
+        list.filter(
+          (el) => el.priority === convertVisibility(filters.visibility)
+        )
+      );
     }
 
     // Search Text

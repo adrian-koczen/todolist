@@ -1,5 +1,5 @@
 // Interfaces
-import { Priority, ListItem } from "interfaces";
+import { Priority, ListItem, Visibility } from "interfaces";
 
 export function convertPriority(priority: Priority) {
   switch (priority) {
@@ -11,6 +11,21 @@ export function convertPriority(priority: Priority) {
       return 0;
     default:
       return priority;
+  }
+}
+
+export function convertVisibility(visibility: Visibility) {
+  switch (visibility) {
+    case Visibility.all:
+      return -1;
+    case Visibility.low:
+      return 2;
+    case Visibility.medium:
+      return 1;
+    case Visibility.high:
+      return 0;
+    default:
+      return -1;
   }
 }
 
