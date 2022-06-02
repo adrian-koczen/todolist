@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.scss";
 // Contexts
-import { useModalContext } from "ModalContext";
+import { useModalContext } from "contexts/ModalContext";
 
 interface Props {
   children?: React.ReactNode;

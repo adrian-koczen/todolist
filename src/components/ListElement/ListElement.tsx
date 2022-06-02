@@ -13,15 +13,15 @@ import { getElementIndex, showPriority } from "functions";
 import ModifyElement from "views/ModifyElement/ModifyTask";
 import FullViewTask from "views/FullViewTask/FullViewTask";
 // Contexts
-import { useTaskContext } from "TaskContext";
-import { useModalContext } from "ModalContext";
+import { useTaskContext } from "contexts/TaskContext";
+import { useModalContext } from "contexts/ModalContext";
 
 interface Props {
   listItem: ListItem;
 }
 
 const ListElement = ({ listItem }: Props) => {
-  let { list, setList } = useTaskContext();
+  let { list, updateList } = useTaskContext();
   const { openModal } = useModalContext();
   const { task, completed, priority } = listItem;
 
@@ -33,7 +33,7 @@ const ListElement = ({ listItem }: Props) => {
       element.endDate = new Date();
       const newList = list.slice();
       newList[index] = element;
-      setList(newList);
+      updateList(newList);
     }
   }
 
@@ -41,7 +41,7 @@ const ListElement = ({ listItem }: Props) => {
     const index = getElementIndex(list, listItem);
     if (index !== undefined) {
       list = list.filter((el) => el !== list[index]);
-      setList(list);
+      updateList(list);
     }
   }
 
@@ -51,7 +51,7 @@ const ListElement = ({ listItem }: Props) => {
     if (index !== undefined) {
       tempArr[index].completed = false;
       delete tempArr[index].endDate;
-      setList(tempArr);
+      updateList(tempArr);
     }
   }
 

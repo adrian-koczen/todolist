@@ -11,8 +11,8 @@ import {
   convertPriorityBack,
 } from "functions";
 // Context
-import { useModalContext } from "ModalContext";
-import { useTaskContext } from "TaskContext";
+import { useModalContext } from "contexts/ModalContext";
+import { useTaskContext } from "contexts/TaskContext";
 
 interface Props {
   id: string;
@@ -31,7 +31,7 @@ const ValidationSchema = Yup.object().shape({
 });
 
 const ModifyElement = ({ id }: Props) => {
-  const { list, setList } = useTaskContext();
+  const { list, updateList } = useTaskContext();
   const { closeModal } = useModalContext();
 
   function getElement(id: string) {
@@ -59,7 +59,7 @@ const ModifyElement = ({ id }: Props) => {
       newElement.priority = convertPriority(priority);
       list[index] = newElement;
       let newList = list.slice().sort(higherToLowerPriority);
-      setList(newList);
+      updateList(newList);
       closeModal();
     }
   }

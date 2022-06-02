@@ -1,12 +1,16 @@
 import React from "react";
 import styles from "./styles.module.scss";
-// Context
-import { useErrorContext } from "ErrorsContext";
 // Icons
 import { ReactComponent as Xcircle } from "icons/xCircle.svg";
+// Interfaces
+import { Error } from "interfaces";
 
-export const Errors = () => {
-  const { errors, removeError } = useErrorContext();
+interface Props {
+  errors: Error[];
+  removeError: (id: number) => void;
+}
+
+export const Errors = ({ errors, removeError }: Props) => {
   return (
     <div className={styles.container}>
       {errors.map((error, i) => {

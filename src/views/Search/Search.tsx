@@ -3,16 +3,16 @@ import styles from "./styles.module.scss";
 import { useFormik } from "formik";
 // Interfaces
 import { Filters } from "interfaces";
-import { useModalContext } from "ModalContext";
+import { useModalContext } from "contexts/ModalContext";
 // Icons
 import { ReactComponent as Remove } from "icons/remove.svg";
 
 interface Props {
   filters: Filters;
-  setFilters: React.Dispatch<React.SetStateAction<Filters>>;
+  updateFilters: (filters: Filters) => void;
 }
 
-const Search = ({ filters, setFilters }: Props) => {
+const Search = ({ filters, updateFilters }: Props) => {
   const { closeModal } = useModalContext();
 
   const initialValues = {
@@ -22,14 +22,14 @@ const Search = ({ filters, setFilters }: Props) => {
   const formik = useFormik({
     initialValues: initialValues,
     onSubmit: (values) => {
-      setFilters({ ...filters, searchText: values.searchText });
+      updateFilters({ ...filters, searchText: values.searchText });
       closeModal();
     },
   });
 
   function clearSearchTerm() {
     formik.setFieldValue("searchText", "");
-    setFilters({ ...filters, searchText: null });
+    updateFilters({ ...filters, searchText: null });
     closeModal();
   }
 

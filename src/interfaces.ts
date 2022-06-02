@@ -39,3 +39,8 @@ export interface Filters {
   sort: SortOption;
   searchText: string | null;
 }
+
+export interface Error {
+  id: number;
+  message: string;
+}

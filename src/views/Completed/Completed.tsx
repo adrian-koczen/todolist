@@ -13,8 +13,8 @@ import { ReactComponent as Check } from "icons/check.svg";
 import { ReactComponent as Filter } from "icons/filter.svg";
 import { ReactComponent as SearchIcon } from "icons/search.svg";
 // Context
-import { useTaskContext } from "TaskContext";
-import { useModalContext } from "ModalContext";
+import { useTaskContext } from "contexts/TaskContext";
+import { useModalContext } from "contexts/ModalContext";
 // Interfaces
 import { Filters, ListItem, SortOption, Visibility } from "interfaces";
 // Functions
@@ -27,7 +27,7 @@ import {
 } from "functions";
 
 const Completed = () => {
-  const { list, setList } = useTaskContext();
+  const { list } = useTaskContext();
   const { openModal } = useModalContext();
   const [filteredList, setFilteredList] = useState<ListItem[] | null>(null);
   const [filters, setFilters] = useState<Filters>({
@@ -36,19 +36,23 @@ const Completed = () => {
     searchText: null,
   });
 
+  function updateFilters(filters: Filters) {
+    setFilters(filters);
+  }
+
   useEffect(() => {
     // Priority sort
-    if (filters.sort === "priority") {
+    if (filters.sort === SortOption.priority) {
       setFilteredList(list.slice().sort(higherToLowerPriority));
     }
 
     // Task name sort
-    if (filters.sort === "task") {
+    if (filters.sort === SortOption.task) {
       setFilteredList(list.slice().sort(sortByTask));
     }
 
     // Create date sort
-    if (filters.sort === "createDate") {
+    if (filters.sort === SortOption.createDate) {
       setFilteredList(list.slice().sort(sortByStartDate));
     }
 
@@ -85,7 +89,7 @@ const Completed = () => {
               <SearchIcon
                 onClick={() =>
                   openModal(
-                    <Search filters={filters} setFilters={setFilters} />
+                    <Search filters={filters} updateFilters={setFilters} />
                   )
                 }
               />
@@ -98,7 +102,7 @@ const Completed = () => {
                   openModal(
                     <TasksFilter
                       filters={filters}
-                      setFilters={setFilters}
+                      updateFilters={setFilters}
                       tab={"completed"}
                     />
                   )
