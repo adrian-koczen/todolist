@@ -98,25 +98,21 @@ const Completed = () => {
 
   return (
     <Box>
-      {isSearchModal && (
-        <Modal visible={isSearchModal} handleVisivle={handleisSearchModal}>
-          <Search
-            filters={filters}
-            updateFilters={updateFilters}
-            handleVisible={handleisSearchModal}
-          />
-        </Modal>
-      )}
-      {isFilterModal && (
-        <Modal visible={isFilterModal} handleVisivle={handleisFilterModal}>
-          <TasksFilter
-            tab="todo"
-            filters={filters}
-            updateFilters={updateFilters}
-            handleVisible={handleisFilterModal}
-          />
-        </Modal>
-      )}
+      <Modal visible={isSearchModal} handleVisivle={handleisSearchModal}>
+        <Search
+          filters={filters}
+          updateFilters={updateFilters}
+          handleVisible={handleisSearchModal}
+        />
+      </Modal>
+      <Modal visible={isFilterModal} handleVisivle={handleisFilterModal}>
+        <TasksFilter
+          tab="todo"
+          filters={filters}
+          updateFilters={updateFilters}
+          handleVisible={handleisFilterModal}
+        />
+      </Modal>
       <Title
         icon={<Icon icon={<Check />} color="green" />}
         options={[

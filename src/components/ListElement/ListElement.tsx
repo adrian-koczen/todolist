@@ -71,25 +71,21 @@ const ListElement = ({ listItem }: Props) => {
 
   return (
     <div className={styles.container}>
-      {isModifyElementModal && (
-        <Modal
-          visible={isModifyElementModal}
+      <Modal
+        visible={isModifyElementModal}
+        handleVisivle={handleModifyElementModal}
+      >
+        <ModifyElement
+          id={listItem.id}
           handleVisivle={handleModifyElementModal}
-        >
-          <ModifyElement
-            id={listItem.id}
-            handleVisivle={handleModifyElementModal}
-          />
-        </Modal>
-      )}
-      {isFullViewElementModal && (
-        <Modal
-          visible={isFullViewElementModal}
-          handleVisivle={handleFullViewElementModal}
-        >
-          <FullViewTask>{task}</FullViewTask>
-        </Modal>
-      )}
+        />
+      </Modal>
+      <Modal
+        visible={isFullViewElementModal}
+        handleVisivle={handleFullViewElementModal}
+      >
+        <FullViewTask>{task}</FullViewTask>
+      </Modal>
       <div className={styles.leftSide}>
         {!completed ? (
           <div className={styles.completeButton} onClick={() => setCompleted()}>
