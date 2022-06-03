@@ -60,6 +60,8 @@ const ToDoList = () => {
     setFilters(filters);
   }
 
+  const updateListBySort = () => {};
+
   useEffect(() => {
     // Priority sort
     if (filters.sort === SortOption.priority) {
@@ -99,7 +101,7 @@ const ToDoList = () => {
       <Modal
         visible={isModal}
         handleVisible={handleModalVisible}
-        closeAllModals={closeAllModals}
+        onClose={closeAllModals}
       >
         {isSearchModal && (
           <Search

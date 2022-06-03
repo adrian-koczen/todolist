@@ -5,15 +5,15 @@ interface Props {
   children: React.ReactElement | React.ReactElement[];
   visible: Boolean;
   handleVisible: (state: Boolean) => void;
-  closeAllModals: () => void;
+  onClose: () => void;
 }
 
-const Modal = ({ children, visible, handleVisible, closeAllModals }: Props) => {
+const Modal = ({ children, visible, handleVisible, onClose }: Props) => {
   if (!visible) return <></>;
 
   const closeModal = (e: any) => {
     if (e.target.className === styles.container) {
-      closeAllModals();
+      onClose();
       handleVisible(false);
     }
   };

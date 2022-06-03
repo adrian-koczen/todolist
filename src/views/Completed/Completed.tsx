@@ -105,7 +105,7 @@ const Completed = () => {
       <Modal
         visible={isModal}
         handleVisible={handleModalVisible}
-        closeAllModals={closeAllModals}
+        onClose={closeAllModals}
       >
         {isSearchModal && (
           <Search

@@ -32,7 +32,7 @@ const ListElement = ({ listItem }: Props) => {
     useState<Boolean>(false);
 
   // Handle modals
-  const closeAllModals = () => {
+  const closeModals = () => {
     setIsModifyElementModal(false);
     setIsFullViewElementModal(false);
   };
@@ -83,7 +83,7 @@ const ListElement = ({ listItem }: Props) => {
       <Modal
         visible={isModal}
         handleVisible={handleModalVisible}
-        closeAllModals={closeAllModals}
+        onClose={closeModals}
       >
         {isModifyElementModal && (
           <ModifyElement

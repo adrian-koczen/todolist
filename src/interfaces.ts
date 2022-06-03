@@ -36,8 +36,8 @@ export enum Visibility {
 
 export interface Filters {
   visibility: Visibility;
-  sort: SortOption;
   searchText: string | null;
+  sort: SortOption;
 }
 
 export interface Error {
