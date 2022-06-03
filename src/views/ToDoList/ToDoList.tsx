@@ -5,8 +5,8 @@ import Title from "components/Title/Title";
 import Icon from "components/Icon/Icon";
 import ListElement from "components/ListElement/ListElement";
 import Option from "components/Option/Option";
+import Modal from "components/Modal/Modal";
 // Views
-import TasksFilter from "views/TasksFilter/TasksFilter";
 import Search from "views/Search/Search";
 // Icons
 import { ReactComponent as Menu } from "icons/menu.svg";
@@ -14,9 +14,14 @@ import { ReactComponent as Filter } from "icons/filter.svg";
 import { ReactComponent as SearchIcon } from "icons/search.svg";
 // Context
 import { useTaskContext } from "contexts/TaskContext";
-import { useModalContext } from "contexts/ModalContext";
 // Interfaces
-import { ListItem, Filters, SortOption, Visibility } from "interfaces";
+import {
+  ListItem,
+  Filters,
+  SortOption,
+  Visibility,
+  ModalType,
+} from "interfaces";
 // Functions
 import {
   sortByTask,
@@ -24,10 +29,10 @@ import {
   sortByStartDate,
   convertVisibility,
 } from "functions";
+import TasksFilter from "views/TasksFilter/TasksFilter";
 
 const ToDoList = () => {
   const { list } = useTaskContext();
-  const { openModal } = useModalContext();
   const [filteredList, setFilteredList] = useState<ListItem[]>([]);
   const [filters, setFilters] = useState<Filters>({
     visibility: Visibility.all,
@@ -35,11 +40,24 @@ const ToDoList = () => {
     searchText: null,
   });
 
+  // Modal states
+  const [isSearchModal, setIsSearchModal] = useState<Boolean>(false);
+  const [isFilterModal, setIsFilterModal] = useState<Boolean>(false);
+
+  // Handle modals
+  const handleisSearchModal = (state: Boolean) => {
+    setIsSearchModal(state);
+  };
+  const handleisFilterModal = (state: Boolean) => {
+    setIsFilterModal(state);
+  };
+
   function updateFilters(filters: Filters) {
     setFilters(filters);
   }
 
   useEffect(() => {
+    console.log("change");
     // Priority sort
     if (filters.sort === SortOption.priority) {
       setFilteredList(list.slice().sort(higherToLowerPriority));
@@ -75,34 +93,33 @@ const ToDoList = () => {
 
   return (
     <Box>
+      {isSearchModal && (
+        <Modal visible={isSearchModal} handleVisivle={handleisSearchModal}>
+          <Search
+            filters={filters}
+            updateFilters={updateFilters}
+            handleVisible={handleisSearchModal}
+          />
+        </Modal>
+      )}
+      {isFilterModal && (
+        <Modal visible={isFilterModal} handleVisivle={handleisFilterModal}>
+          <TasksFilter
+            tab="todo"
+            filters={filters}
+            updateFilters={updateFilters}
+            handleVisible={handleisFilterModal}
+          />
+        </Modal>
+      )}
       <Title
         icon={<Icon color="yellow" icon={<Menu />} />}
         options={[
           <Option
-            icon={
-              <SearchIcon
-                onClick={() =>
-                  openModal(
-                    <Search filters={filters} updateFilters={updateFilters} />
-                  )
-                }
-              />
-            }
+            icon={<SearchIcon onClick={() => handleisSearchModal(true)} />}
           />,
           <Option
-            icon={
-              <Filter
-                onClick={() =>
-                  openModal(
-                    <TasksFilter
-                      filters={filters}
-                      updateFilters={updateFilters}
-                      tab={"todo"}
-                    />
-                  )
-                }
-              />
-            }
+            icon={<Filter onClick={() => handleisFilterModal(true)} />}
           />,
         ]}
       >

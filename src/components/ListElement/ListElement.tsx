@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
 // Interfaces
 import { ListItem } from "interfaces";
@@ -8,13 +8,14 @@ import { ReactComponent as Bin } from "icons/bin.svg";
 import { ReactComponent as Check } from "icons/check2.svg";
 import { ReactComponent as Menu } from "icons/menu.svg";
 // Functions
-import { getElementIndex, showPriority } from "functions";
-// Views
-import ModifyElement from "views/ModifyElement/ModifyTask";
-import FullViewTask from "views/FullViewTask/FullViewTask";
+import { showPriority } from "functions";
 // Contexts
 import { useTaskContext } from "contexts/TaskContext";
-import { useModalContext } from "contexts/ModalContext";
+import { ModalType } from "interfaces";
+// Components
+import Modal from "components/Modal/Modal";
+import ModifyElement from "views/ModifyElement/ModifyTask";
+import FullViewTask from "views/FullViewTask/FullViewTask";
 
 interface Props {
   listItem: ListItem;
@@ -22,11 +23,24 @@ interface Props {
 
 const ListElement = ({ listItem }: Props) => {
   let { list, updateList } = useTaskContext();
-  const { openModal } = useModalContext();
   const { task, completed, priority } = listItem;
 
+  // Modal states
+  const [isModifyElementModal, setIsModifyElementModal] =
+    useState<Boolean>(false);
+  const [isFullViewElementModal, setIsFullViewElementModal] =
+    useState<Boolean>(false);
+
+  // Handle modals
+  const handleModifyElementModal = (state: Boolean) => {
+    setIsModifyElementModal(state);
+  };
+  const handleFullViewElementModal = (state: Boolean) => {
+    setIsFullViewElementModal(state);
+  };
+
   function setCompleted() {
-    const index = getElementIndex(list, listItem);
+    const index = list.indexOf(listItem);
     if (index !== undefined) {
       let element = list[index];
       element.completed = true;
@@ -38,7 +52,7 @@ const ListElement = ({ listItem }: Props) => {
   }
 
   function remove() {
-    const index = getElementIndex(list, listItem);
+    const index = list.indexOf(listItem);
     if (index !== undefined) {
       list = list.filter((el) => el !== list[index]);
       updateList(list);
@@ -46,7 +60,7 @@ const ListElement = ({ listItem }: Props) => {
   }
 
   function setNotCompleted() {
-    const index = getElementIndex(list, listItem);
+    const index = list.indexOf(listItem);
     let tempArr = list.slice();
     if (index !== undefined) {
       tempArr[index].completed = false;
@@ -57,6 +71,25 @@ const ListElement = ({ listItem }: Props) => {
 
   return (
     <div className={styles.container}>
+      {isModifyElementModal && (
+        <Modal
+          visible={isModifyElementModal}
+          handleVisivle={handleModifyElementModal}
+        >
+          <ModifyElement
+            id={listItem.id}
+            handleVisivle={handleModifyElementModal}
+          />
+        </Modal>
+      )}
+      {isFullViewElementModal && (
+        <Modal
+          visible={isFullViewElementModal}
+          handleVisivle={handleFullViewElementModal}
+        >
+          <FullViewTask>{task}</FullViewTask>
+        </Modal>
+      )}
       <div className={styles.leftSide}>
         {!completed ? (
           <div className={styles.completeButton} onClick={() => setCompleted()}>
@@ -84,7 +117,7 @@ const ListElement = ({ listItem }: Props) => {
           {showPriority(priority)}
         </span>
         <span
-          onClick={() => openModal(<FullViewTask>{task}</FullViewTask>)}
+          onClick={() => handleFullViewElementModal(true)}
           className={styles.task}
         >
           {task}
@@ -94,7 +127,7 @@ const ListElement = ({ listItem }: Props) => {
         {!completed && (
           <Pencil
             className={`${styles.functionIcon} ${styles.green}`}
-            onClick={() => openModal(<ModifyElement id={listItem.id} />)}
+            onClick={() => handleModifyElementModal(true)}
           />
         )}
         <Bin

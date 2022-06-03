@@ -27,6 +27,9 @@ const TaskContext = ({ children }: Props) => {
   const [errors, setErrors] = useState<Error[]>([]);
 
   function updateList(list: ListItem[]) {
+    if (list.length > 0) {
+      localStorage.setItem("data", JSON.stringify(list));
+    }
     return setList(list);
   }
 
@@ -47,12 +50,6 @@ const TaskContext = ({ children }: Props) => {
       setList(JSON.parse(data));
     }
   }, []);
-
-  useEffect(() => {
-    if (list.length > 0) {
-      localStorage.setItem("data", JSON.stringify(list));
-    }
-  }, [list]);
 
   return (
     <Context.Provider value={{ list, updateList, addError }}>

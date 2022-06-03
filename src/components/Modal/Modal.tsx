@@ -1,23 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./styles.module.scss";
-// Contexts
-import { useModalContext } from "contexts/ModalContext";
 
 interface Props {
-  children?: React.ReactNode;
+  children?: React.ReactElement<any>;
+  visible: Boolean;
+  handleVisivle: (state: Boolean) => void;
 }
 
-const Modal = ({ children }: Props) => {
-  const { closeModal } = useModalContext();
+const Modal = ({ children, visible, handleVisivle }: Props) => {
+  if (!visible) return <></>;
 
-  function close(e: any) {
+  const closeModal = (e: any) => {
     if (e.target.className === styles.container) {
-      closeModal();
+      handleVisivle(false);
     }
-  }
+  };
 
   return (
-    <div className={styles.container} onClick={(e) => close(e)}>
+    <div className={styles.container} onClick={(e) => closeModal(e)}>
       <div className={styles.content}>{children}</div>
     </div>
   );

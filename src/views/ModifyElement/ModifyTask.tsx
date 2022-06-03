@@ -11,11 +11,11 @@ import {
   convertPriorityBack,
 } from "functions";
 // Context
-import { useModalContext } from "contexts/ModalContext";
 import { useTaskContext } from "contexts/TaskContext";
 
 interface Props {
-  id: string;
+  id: string | undefined;
+  handleVisivle: (state: Boolean) => void;
 }
 
 interface Element {
@@ -30,11 +30,10 @@ const ValidationSchema = Yup.object().shape({
     .required(),
 });
 
-const ModifyElement = ({ id }: Props) => {
+const ModifyElement = ({ id, handleVisivle }: Props) => {
   const { list, updateList } = useTaskContext();
-  const { closeModal } = useModalContext();
 
-  function getElement(id: string) {
+  function getElement(id: string | undefined) {
     const element = list.find((el) => el.id === id);
     if (element !== undefined) {
       return {
@@ -60,7 +59,7 @@ const ModifyElement = ({ id }: Props) => {
       list[index] = newElement;
       let newList = list.slice().sort(higherToLowerPriority);
       updateList(newList);
-      closeModal();
+      handleVisivle(false);
     }
   }
 

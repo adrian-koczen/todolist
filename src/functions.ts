@@ -60,14 +60,6 @@ export function isTaskInArray(
   return list.find((el) => el.task === task);
 }
 
-export function getElementIndex(list: ListItem[], listItem: ListItem) {
-  let element = list.find((el) => el.id === listItem.id);
-  if (element !== undefined) {
-    let index = list.indexOf(element);
-    return index;
-  }
-}
-
 export function showPriority(priority: number) {
   switch (priority) {
     case 2:

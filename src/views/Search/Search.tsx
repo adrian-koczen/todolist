@@ -3,18 +3,16 @@ import styles from "./styles.module.scss";
 import { useFormik } from "formik";
 // Interfaces
 import { Filters } from "interfaces";
-import { useModalContext } from "contexts/ModalContext";
 // Icons
 import { ReactComponent as Remove } from "icons/remove.svg";
 
 interface Props {
   filters: Filters;
   updateFilters: (filters: Filters) => void;
+  handleVisible: (state: Boolean) => void;
 }
 
-const Search = ({ filters, updateFilters }: Props) => {
-  const { closeModal } = useModalContext();
-
+const Search = ({ filters, updateFilters, handleVisible }: Props) => {
   const initialValues = {
     searchText: filters.searchText ? filters.searchText : "",
   };
@@ -23,14 +21,14 @@ const Search = ({ filters, updateFilters }: Props) => {
     initialValues: initialValues,
     onSubmit: (values) => {
       updateFilters({ ...filters, searchText: values.searchText });
-      closeModal();
+      handleVisible(false);
     },
   });
 
   function clearSearchTerm() {
     formik.setFieldValue("searchText", "");
     updateFilters({ ...filters, searchText: null });
-    closeModal();
+    handleVisible(false);
   }
 
   return (

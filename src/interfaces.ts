@@ -44,3 +44,10 @@ export interface Error {
   id: number;
   message: string;
 }
+
+export enum ModalType {
+  FullViewTask = "FullViewTask",
+  ModifyElement = "ModifyElement",
+  Search = "Search",
+  TasksFilter = "TasksFilter",
+}

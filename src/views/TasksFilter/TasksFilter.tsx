@@ -1,8 +1,6 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import { useFormik } from "formik";
-// Context
-import { useModalContext } from "contexts/ModalContext";
 // Interfaces
 import { Filters, SortOption, Visibility } from "interfaces";
 
@@ -10,11 +8,10 @@ interface Props {
   tab: "todo" | "completed";
   filters: Filters;
   updateFilters: (filters: Filters) => void;
+  handleVisible: (state: Boolean) => void;
 }
 
-const TasksFilter = ({ filters, updateFilters, tab }: Props) => {
-  const { closeModal } = useModalContext();
-
+const TasksFilter = ({ filters, updateFilters, tab, handleVisible }: Props) => {
   const initialValues = filters;
 
   const formik = useFormik({
@@ -25,7 +22,7 @@ const TasksFilter = ({ filters, updateFilters, tab }: Props) => {
         visibility: values.visibility,
         sort: values.sort,
       });
-      closeModal();
+      handleVisible(false);
     },
   });
 
