@@ -16,13 +16,7 @@ import { ReactComponent as SearchIcon } from "icons/search.svg";
 // Context
 import { useTaskContext } from "contexts/TaskContext";
 // Interfaces
-import {
-  Filters,
-  ListItem,
-  SortOption,
-  Visibility,
-  ModalType,
-} from "interfaces";
+import { Filters, ListItem, SortOption, Visibility } from "interfaces";
 // Functions
 import {
   sortByTask,

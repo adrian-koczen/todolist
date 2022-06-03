@@ -11,7 +11,6 @@ import { ReactComponent as Menu } from "icons/menu.svg";
 import { showPriority } from "functions";
 // Contexts
 import { useTaskContext } from "contexts/TaskContext";
-import { ModalType } from "interfaces";
 // Components
 import Modal from "components/Modal/Modal";
 import ModifyElement from "views/ModifyElement/ModifyTask";
