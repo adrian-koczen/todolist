@@ -25,16 +25,26 @@ const ListElement = ({ listItem }: Props) => {
   const { task, completed, priority } = listItem;
 
   // Modal states
+  const [isModal, setIsModal] = useState<Boolean>(false);
   const [isModifyElementModal, setIsModifyElementModal] =
     useState<Boolean>(false);
   const [isFullViewElementModal, setIsFullViewElementModal] =
     useState<Boolean>(false);
 
   // Handle modals
+  const closeAllModals = () => {
+    setIsModifyElementModal(false);
+    setIsFullViewElementModal(false);
+  };
+  const handleModalVisible = (state: Boolean) => {
+    setIsModal(state);
+  };
   const handleModifyElementModal = (state: Boolean) => {
+    handleModalVisible(state);
     setIsModifyElementModal(state);
   };
   const handleFullViewElementModal = (state: Boolean) => {
+    handleModalVisible(state);
     setIsFullViewElementModal(state);
   };
 
@@ -71,19 +81,17 @@ const ListElement = ({ listItem }: Props) => {
   return (
     <div className={styles.container}>
       <Modal
-        visible={isModifyElementModal}
-        handleVisivle={handleModifyElementModal}
+        visible={isModal}
+        handleVisible={handleModalVisible}
+        closeAllModals={closeAllModals}
       >
-        <ModifyElement
-          id={listItem.id}
-          handleVisivle={handleModifyElementModal}
-        />
-      </Modal>
-      <Modal
-        visible={isFullViewElementModal}
-        handleVisivle={handleFullViewElementModal}
-      >
-        <FullViewTask>{task}</FullViewTask>
+        {isModifyElementModal && (
+          <ModifyElement
+            id={listItem.id}
+            handleVisible={handleModifyElementModal}
+          />
+        )}
+        {isFullViewElementModal && <FullViewTask>{task}</FullViewTask>}
       </Modal>
       <div className={styles.leftSide}>
         {!completed ? (

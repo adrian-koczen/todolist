@@ -27,8 +27,6 @@ const Search = ({ filters, updateFilters, handleVisible }: Props) => {
 
   function clearSearchTerm() {
     formik.setFieldValue("searchText", "");
-    updateFilters({ ...filters, searchText: null });
-    handleVisible(false);
   }
 
   return (

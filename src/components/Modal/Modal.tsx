@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import styles from "./styles.module.scss";
 
 interface Props {
-  children?: React.ReactElement<any>;
+  children: React.ReactElement | React.ReactElement[];
   visible: Boolean;
-  handleVisivle: (state: Boolean) => void;
+  handleVisible: (state: Boolean) => void;
+  closeAllModals: () => void;
 }
 
-const Modal = ({ children, visible, handleVisivle }: Props) => {
+const Modal = ({ children, visible, handleVisible, closeAllModals }: Props) => {
   if (!visible) return <></>;
 
   const closeModal = (e: any) => {
     if (e.target.className === styles.container) {
-      handleVisivle(false);
+      closeAllModals();
+      handleVisible(false);
     }
   };
 

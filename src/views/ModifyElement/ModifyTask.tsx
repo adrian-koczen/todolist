@@ -15,7 +15,7 @@ import { useTaskContext } from "contexts/TaskContext";
 
 interface Props {
   id: string | undefined;
-  handleVisivle: (state: Boolean) => void;
+  handleVisible: (state: Boolean) => void;
 }
 
 interface Element {
@@ -30,7 +30,7 @@ const ValidationSchema = Yup.object().shape({
     .required(),
 });
 
-const ModifyElement = ({ id, handleVisivle }: Props) => {
+const ModifyElement = ({ id, handleVisible }: Props) => {
   const { list, updateList } = useTaskContext();
 
   function getElement(id: string | undefined) {
@@ -59,7 +59,7 @@ const ModifyElement = ({ id, handleVisivle }: Props) => {
       list[index] = newElement;
       let newList = list.slice().sort(higherToLowerPriority);
       updateList(newList);
-      handleVisivle(false);
+      handleVisible(false);
     }
   }
 

@@ -36,14 +36,24 @@ const Completed = () => {
   });
 
   // Modal states
+  const [isModal, setIsModal] = useState<Boolean>(false);
   const [isSearchModal, setIsSearchModal] = useState<Boolean>(false);
   const [isFilterModal, setIsFilterModal] = useState<Boolean>(false);
 
   // Handle modals
-  const handleisSearchModal = (state: Boolean) => {
+  const closeAllModals = () => {
+    setIsSearchModal(false);
+    setIsFilterModal(false);
+  };
+  const handleModalVisible = (state: Boolean) => {
+    setIsModal(state);
+  };
+  const handleIsSearchModal = (state: Boolean) => {
+    handleModalVisible(state);
     setIsSearchModal(state);
   };
-  const handleisFilterModal = (state: Boolean) => {
+  const handleIsFilterModal = (state: Boolean) => {
+    handleModalVisible(state);
     setIsFilterModal(state);
   };
 
@@ -92,29 +102,35 @@ const Completed = () => {
 
   return (
     <Box>
-      <Modal visible={isSearchModal} handleVisivle={handleisSearchModal}>
-        <Search
-          filters={filters}
-          updateFilters={updateFilters}
-          handleVisible={handleisSearchModal}
-        />
-      </Modal>
-      <Modal visible={isFilterModal} handleVisivle={handleisFilterModal}>
-        <TasksFilter
-          tab="todo"
-          filters={filters}
-          updateFilters={updateFilters}
-          handleVisible={handleisFilterModal}
-        />
+      <Modal
+        visible={isModal}
+        handleVisible={handleModalVisible}
+        closeAllModals={closeAllModals}
+      >
+        {isSearchModal && (
+          <Search
+            filters={filters}
+            updateFilters={updateFilters}
+            handleVisible={handleIsSearchModal}
+          />
+        )}
+        {isFilterModal && (
+          <TasksFilter
+            filters={filters}
+            updateFilters={updateFilters}
+            tab="todo"
+            handleVisible={handleIsFilterModal}
+          />
+        )}
       </Modal>
       <Title
         icon={<Icon icon={<Check />} color="green" />}
         options={[
           <Option
-            icon={<SearchIcon onClick={() => handleisSearchModal(true)} />}
+            icon={<SearchIcon onClick={() => handleIsSearchModal(true)} />}
           />,
           <Option
-            icon={<Filter onClick={() => handleisFilterModal(true)} />}
+            icon={<Filter onClick={() => handleIsFilterModal(true)} />}
           />,
         ]}
       >
